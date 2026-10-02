@@ -446,8 +446,12 @@ runtime:
   `modules/llm/catalog/local/manifest`. The manifest is read by path, so the analyser cannot see
   it, and a packaging test asserts it is bundled.
 - Release CI stages the runtime with `node scripts/fetch-llamacpp.mjs`, and on
-  Linux runs the packaged `llama-server --list-devices` from
-  `resources/llamacpp/`.
+  every platform runs the packaged `llama-server --list-devices` from the
+  `llamacpp` directory `electron-builder` wrote: `resources/llamacpp/` on Linux
+  and Windows, `Contents/Resources/llamacpp/` inside the macOS `.app`. On macOS
+  that is after signing and notarization on a production tag, which rewrite
+  the binaries. It does not load a model, so a worker the router spawns is not
+  exercised there.
 
 The rest of the installer is in [`../packaging.md`](../packaging.md).
 
