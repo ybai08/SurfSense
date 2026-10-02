@@ -498,4 +498,3 @@ layer count, of `--reasoning-budget` and of `--sleep-idle-seconds`.
 
 ## Known gaps
 
-- Release CI runs the packaged `llama-server --list-devices` on Linux only; the macOS and Windows builds are checked only in the staging directory by `fetch-llamacpp.mjs`.
