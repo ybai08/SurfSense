@@ -333,6 +333,8 @@ jobs:
           AZURE_CLIENT_ID: ${{ steps.sign.outputs.prod == 'true' && secrets.AZURE_CLIENT_ID || '' }}
           AZURE_CLIENT_SECRET: ${{ steps.sign.outputs.prod == 'true' && secrets.AZURE_CLIENT_SECRET || '' }}
         run: |
+          # FORK-ONLY EVIDENCE RUN, not for upstream: build unsigned without secrets.
+          if [ -z "$CSC_LINK" ]; then unset CSC_LINK CSC_KEY_PASSWORD APPLE_ID APPLE_APP_SPECIFIC_PASSWORD APPLE_TEAM_ID; export CSC_IDENTITY_AUTO_DISCOVERY=false; fi
           CMD=(pnpm exec electron-builder ${{ matrix.platform }} \
             --publish "${{ inputs.publish || 'always' }}" \
             -c.npmRebuild=false \
